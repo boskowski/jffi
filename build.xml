@@ -130,6 +130,7 @@
         <os name="DragonFlyBSD"/>
         <os name="AIX"/>
         <os name="HP-UX"/>
+        <os name="OS/400"/>
       </or>
     </condition>
     <condition property="make.exe" value="/usr/sfw/bin/gmake">
