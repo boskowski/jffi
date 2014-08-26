@@ -22,7 +22,7 @@ extern "C" {
 /* mingw64 defines this already in malloc.h. */
 #ifndef alloca
 # define alloca __builtin_alloca
-#endif
+#endif 
 # define MAYBE_UNUSED __attribute__((__unused__))
 #else
 # define MAYBE_UNUSED

@@ -65,6 +65,33 @@ extern "C" {
 #  define unlikely(x) (x)
 #endif
 
+/* Do not move this. Some versions of AIX are very picky about where
+   this is positioned. */
+#ifdef __GNUC__
+/* mingw64 defines this already in malloc.h. */
+#ifndef alloca
+# define alloca __builtin_alloca
+#endif 
+# define MAYBE_UNUSED __attribute__((__unused__))
+#else
+# define MAYBE_UNUSED
+# if HAVE_ALLOCA_H
+#  include <alloca.h>
+# else
+#  ifdef _AIX
+ #pragma alloca
+#  else
+#   ifndef alloca /* predefined by HP cc +Olibcalls */
+#    ifdef _MSC_VER
+#     define alloca _alloca
+#    else
+char *alloca ();
+#    endif
+#   endif
+#  endif
+# endif
+#endif
+
 /**
  * Convert a C pointer into a java long
  */
