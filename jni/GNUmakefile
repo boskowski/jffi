@@ -219,6 +219,14 @@ ifeq ($(OS), solaris)
   SOFLAGS = -shared -static-libgcc
   LIBS += -ldl
   STRIP = strip
+endif 
+
+ifeq ($(OS), os400)
+  SOFLAGS = -shared -static-libgcc
+  CFLAGS += -pthread
+  LDFLAGS += -pthread
+  JNIEXT = a
+  STRIP = strip
 endif
 
 ifeq ($(OS), aix)
