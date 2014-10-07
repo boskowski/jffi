@@ -110,7 +110,7 @@
     <condition property="platform.cpu" value="${os.arch}">
       <not><isset property="platform.cpu"/></not>
     </condition>
-    <condition property="platform.os" value="${os.name}">
+    <condition property="platform.os" value="OS400">
       <not><isset property="platform.os"/></not>
     </condition>
     <condition property="platform" value="Darwin">

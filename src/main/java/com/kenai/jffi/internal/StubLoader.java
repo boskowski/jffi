@@ -97,6 +97,8 @@ public class StubLoader {
         WINDOWS,
         /** IBM AIX */
         AIX,
+        /** IBM OS400 */
+        OS400,
         /** IBM zOS **/
         ZLINUX,
 
@@ -158,6 +160,8 @@ public class StubLoader {
             return OS.SOLARIS;
         } else if (Util.startsWithIgnoreCase(osName, "aix", LOCALE)) {
             return OS.AIX; 
+        } else if (Util.startsWithIgnoreCase(osName, "os/400", LOCALE)) {
+            return OS.OS400;
         } else if (Util.startsWithIgnoreCase(osName, "openbsd", LOCALE)) {
             return OS.OPENBSD;
         } else if (Util.startsWithIgnoreCase(osName, "freebsd", LOCALE)) {
@@ -235,12 +239,14 @@ public class StubLoader {
      * @return The name of this platform.
      */
     public static String getPlatformName() {
+    	String osName = "";
         if (getOS().equals(OS.DARWIN)) {
             return "Darwin";
+        }else if(getOS().equals(OS.OS400)) {
+          osName = "OS400";
+        }else{
+          osName = System.getProperty("os.name").split(" ")[0];
         }
-
-       
-        String osName = System.getProperty("os.name").split(" ")[0];
         return getCPU().name().toLowerCase(LOCALE) + "-" + osName;
     }
     /**
@@ -345,7 +351,7 @@ public class StubLoader {
                 }
             }
 
-            if (getOS() == OS.DARWIN) {
+            if (getOS() == OS.DARWIN || getOS() == OS.OS400) {
                 path = getAlternateLibraryPath(path);
                 if (new File(path).isFile()) {
                     try {

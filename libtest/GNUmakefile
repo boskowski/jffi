@@ -130,6 +130,12 @@ ifeq ($(OS), solaris)
   SOFLAGS = -shared -static-libgcc 
 endif
 
+ifeq ($(OS), os400)
+  #LIBEXT = a
+  SOFLAGS = -shared -static-libgcc
+  PICFLAGS += -pthread
+endif
+
 ifeq ($(OS), aix)
   LIBEXT = a
   SOFLAGS = -shared -static-libgcc
