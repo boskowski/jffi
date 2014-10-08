@@ -63,6 +63,8 @@ public abstract class Platform {
         WINDOWS,
         /** IBM AIX */
         AIX,
+        /** IBM i (aka OS/400) */
+        OS400,
         /** IBM zOS **/
         ZLINUX,
 
@@ -135,7 +137,10 @@ public abstract class Platform {
         
         } else if (startsWithIgnoreCase(osName, "aix")) {
             return OS.AIX; 
-        
+
+        } else if (startsWithIgnoreCase(osName, "OS/400")) {
+            return OS.OS400; 
+            
         } else if (startsWithIgnoreCase(osName, "openbsd")) {
             return OS.OPENBSD;
         
@@ -163,7 +168,10 @@ public abstract class Platform {
             
             case WINDOWS:
                 return newWindowsPlatform();
-            
+                
+            case OS400:
+                return newOS400Platform();
+                
             default:
                 return newDefaultPlatform(os);
         }
@@ -175,6 +183,10 @@ public abstract class Platform {
     
     private static Platform newWindowsPlatform() {
         return new Windows();
+    }
+    
+    private static Platform newOS400Platform() {
+        return new OS400();
     }
     
     private static Platform newDefaultPlatform(OS os) {
@@ -324,7 +336,12 @@ public abstract class Platform {
      * @return The name of this platform.
      */
     public String getName() {
-        String osName = System.getProperty("os.name").split(" ")[0];
+        String osName = "";
+        if(getOS().equals(OS.OS400)) {
+          osName = "OS400";
+        }else{
+          osName = System.getProperty("os.name").split(" ")[0];	
+        }
         return getCPU().name().toLowerCase(LOCALE) + "-" + osName;
     }
 
@@ -341,6 +358,7 @@ public abstract class Platform {
         if (libName.matches(getLibraryNamePattern())) {
             return libName;
         }
+        
         return System.mapLibraryName(libName);
     }
 
@@ -380,6 +398,31 @@ public abstract class Platform {
             return getCPU().dataModel;
         }        
     }
+
+    /**
+     * A {@link Platform} subclass representing the OS400 system.
+     */
+    private static final class OS400 extends Platform {
+
+        public OS400() {
+            super(OS.OS400);
+        }
+
+        @Override
+        public String mapLibraryName(String libName) {
+            return "lib" + libName + ".a";
+        }
+        
+        @Override
+        public String getName() {
+            return "OS400";
+        }
+        
+        public final int longSize() {
+            return getCPU().dataModel;
+        }
+    }    
+    
     /**
      * A {@link Platform} subclass representing the MacOS system.
      */
