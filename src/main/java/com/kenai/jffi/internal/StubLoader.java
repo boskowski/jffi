@@ -291,6 +291,8 @@ public class StubLoader {
     private static String getAlternateLibraryPath(String path) {
         if (path.endsWith("dylib")) {
             return path.substring(0, path.lastIndexOf("dylib")) + "jnilib";
+        } else if (path.endsWith(".srvpgm")) {
+            return path.substring(0, path.lastIndexOf(".srvpgm"));
         } else {
             return path.substring(0, path.lastIndexOf("jnilib")) + "dylib";
         }
