@@ -1,5 +1,5 @@
 # -*- makefile -*-
-
+CC=gcc
 BUILD_OS := $(strip $(shell uname -s | tr '[:upper:]' '[:lower:]'))
 OS ?= $(BUILD_OS)
 ifeq ($(OS),sunos)
