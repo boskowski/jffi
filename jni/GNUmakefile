@@ -1,5 +1,4 @@
 # -*- makefile -*-
-CC=gcc
 BUILD_OS := $(strip $(shell uname -s | tr '[:upper:]' '[:lower:]'))
 OS ?= $(BUILD_OS)
 ifeq ($(OS),sunos)
@@ -220,6 +219,7 @@ ifeq ($(OS), solaris)
 endif 
 
 ifeq ($(OS), os400)
+  CC = gcc
   SOFLAGS = -shared -static-libgcc
   CFLAGS += -pthread
   LDFLAGS += -pthread
