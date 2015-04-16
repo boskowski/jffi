@@ -40,7 +40,7 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
 final class Foreign {
-    
+
     private static abstract class InstanceHolder {
         static final InstanceHolder INSTANCE = getInstanceHolder();
 
