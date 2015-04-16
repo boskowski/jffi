@@ -55,8 +55,8 @@ public abstract class Platform {
         NETBSD,
         /** OpenBSD */
         OPENBSD,
-	/** DragonFly */
-	DRAGONFLY,
+        /** DragonFly */
+        DRAGONFLY,
         /** Linux */
         LINUX,
         /** Solaris (and OpenSolaris) */
@@ -248,7 +248,7 @@ public abstract class Platform {
             } else if (Util.equalsIgnoreCase("aarch64", archString, LOCALE)) {
                 return CPU.AARCH64;
             }
-            
+
 
             // Try to find by lookup up in the CPU list
             for (CPU cpu : CPU.values()) {

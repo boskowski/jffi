@@ -159,7 +159,7 @@ public class StubLoader {
         } else if (Util.startsWithIgnoreCase(osName, "sunos", LOCALE) || Util.startsWithIgnoreCase(osName, "solaris", LOCALE)) {
             return OS.SOLARIS;
         } else if (Util.startsWithIgnoreCase(osName, "aix", LOCALE)) {
-            return OS.AIX; 
+            return OS.AIX;
         } else if (Util.startsWithIgnoreCase(osName, "os/400", LOCALE)) {
             return OS.OS400;
         } else if (Util.startsWithIgnoreCase(osName, "openbsd", LOCALE)) {
