@@ -131,7 +131,7 @@ ifeq ($(OS), solaris)
 endif
 
 ifeq ($(OS), os400)
-  LIBEXT = a
+  #LIBEXT = a
   SOFLAGS = -shared -static-libgcc
   PICFLAGS += -pthread
 endif
@@ -196,7 +196,7 @@ $(TEST_BUILD_DIR)/%.o : $(SRC_DIR)/%.c
 	$(CCACHE) $(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBTEST):  $(TEST_OBJS)
-	$(CC) -o $@ $(PICFLAGS) $(LDFLAGS) $(TEST_OBJS) -lm
+	$(CC) -pthread -o $@ $(PICFLAGS) $(LDFLAGS) $(TEST_OBJS) -lm
 
 clean::
 	# nothing to do - ant will delete the build dir
