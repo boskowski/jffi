@@ -225,7 +225,7 @@ ifeq ($(OS), os400)
   SOFLAGS = -shared -static-libgcc
   CFLAGS += -pthread
   LDFLAGS += -pthread
-  JNIEXT = a
+  #JNIEXT = a
   STRIP = strip
 endif
 
