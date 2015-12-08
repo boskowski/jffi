@@ -1,5 +1,4 @@
 # -*- makefile -*-
-
 BUILD_OS := $(strip $(shell uname -s | tr '[:upper:]' '[:lower:]'))
 OS ?= $(BUILD_OS)
 ifeq ($(OS),sunos)
@@ -216,6 +215,15 @@ ifeq ($(OS), solaris)
   LD = /usr/ccs/bin/ld
   SOFLAGS = -shared -static-libgcc
   LIBS += -ldl
+  STRIP = strip
+endif 
+
+ifeq ($(OS), os400)
+  CC = gcc
+  SOFLAGS = -shared -static-libgcc
+  CFLAGS += -pthread
+  LDFLAGS += -pthread
+  JNIEXT = a
   STRIP = strip
 endif
 

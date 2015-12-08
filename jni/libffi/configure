@@ -17323,6 +17323,9 @@ case "$host" in
   powerpc-*-darwin* | powerpc64-*-darwin*)
 	TARGET=POWERPC_DARWIN; TARGETDIR=powerpc
 	;;
+  powerpc-*ibm-os400*)
+  TARGET=POWERPC_AIX; TARGETDIR=powerpc
+  ;;
   powerpc-*-aix* | rs6000-*-aix*)
 	TARGET=POWERPC_AIX; TARGETDIR=powerpc
 	;;

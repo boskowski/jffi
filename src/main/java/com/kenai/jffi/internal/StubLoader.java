@@ -85,6 +85,8 @@ public class StubLoader {
         WINDOWS,
         /** IBM AIX */
         AIX,
+        /** IBM OS400 */
+        OS400,
         /** IBM zOS **/
         ZLINUX,
 
@@ -141,7 +143,9 @@ public class StubLoader {
         } else if (Util.startsWithIgnoreCase(osName, "sunos", LOCALE) || Util.startsWithIgnoreCase(osName, "solaris", LOCALE)) {
             return OS.SOLARIS;
         } else if (Util.startsWithIgnoreCase(osName, "aix", LOCALE)) {
-            return OS.AIX; 
+            return OS.AIX;
+        } else if (Util.startsWithIgnoreCase(osName, "OS/400", LOCALE)) {
+            return OS.OS400; 
         } else if (Util.startsWithIgnoreCase(osName, "openbsd", LOCALE)) {
             return OS.OPENBSD;
         } else if (Util.startsWithIgnoreCase(osName, "freebsd", LOCALE)) {
@@ -215,12 +219,14 @@ public class StubLoader {
      * @return The name of this platform.
      */
     public static String getPlatformName() {
+    	String osName = "";
         if (getOS().equals(OS.DARWIN)) {
             return "Darwin";
+        }else if(getOS().equals(OS.OS400)) {
+          osName = "OS400";
+        }else{
+          osName = System.getProperty("os.name").split(" ")[0];	
         }
-
-       
-        String osName = System.getProperty("os.name").split(" ")[0];
         return getCPU().name().toLowerCase(LOCALE) + "-" + osName;
     }
     /**
@@ -295,6 +301,8 @@ public class StubLoader {
     private static String getAlternateLibraryPath(String path) {
         if (path.endsWith("dylib")) {
             return path.substring(0, path.lastIndexOf("dylib")) + "jnilib";
+        } else if (path.endsWith(".srvpgm")) {
+            return path.substring(0, path.lastIndexOf(".srvpgm"));
         } else {
             return path.substring(0, path.lastIndexOf("jnilib")) + "dylib";
         }
@@ -318,7 +326,7 @@ public class StubLoader {
             } catch (UnsatisfiedLinkError ex) {
                 errors.add(ex);
             }
-            if (getOS() == OS.DARWIN) {
+            if (getOS() == OS.DARWIN || getOS() == OS.OS400) {
                 try {
                     System.load(getAlternateLibraryPath(path));
                     return true;
