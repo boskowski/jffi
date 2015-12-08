@@ -156,7 +156,7 @@ typedef enum ffi_abi {
 #define FFI_V2_TYPE_DOUBLE_HOMOG	(FFI_TYPE_LAST + 2)
 #define FFI_V2_TYPE_SMALL_STRUCT	(FFI_TYPE_LAST + 3)
 
-#if _CALL_ELF == 2
+#if defined(_CALL_ELF) && _CALL_ELF == 2
 # define FFI_TRAMPOLINE_SIZE 32
 #else
 # if defined(POWERPC64) || defined(POWERPC_AIX)
